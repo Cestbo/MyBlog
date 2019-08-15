@@ -1,16 +1,20 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.AccessToken;
 import com.example.demo.pojo.GithubUser;
+import com.example.demo.pojo.User;
 import com.example.demo.provider.GithubAutoPro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Controller
 public class AuthController {
@@ -25,9 +29,14 @@ public class AuthController {
     @Value("${github.redirect_url}")
     private String redirect_url;
 
+    /*报“no beans of 'UserMapper'type found”,这是因为mybatis启动器不是spring
+    官方出的，spring会误认为没有注入容器，实际已经注入了*/
+    @Autowired
+    private UserMapper userMapper;
+
     @RequestMapping("/callback")
     public String callback(@RequestParam(name = "code")String code, @RequestParam(name = "state") String state
-    , HttpServletRequest request)
+    ,  HttpServletResponse response)
     {
         AccessToken accessToken=new AccessToken();
         /*这些数据硬编码在代码里不方便以后更改，改为.properties文件配置*/
@@ -38,11 +47,20 @@ public class AuthController {
         accessToken.setRedirect_uri(redirect_url);
         accessToken.setState(state);
         String token=githubAutoPro.getAccessToken(accessToken);
-        GithubUser user=githubAutoPro.getUserInfo(token);
-        System.out.println(user.getBio());
-        if(user!=null)
+        GithubUser githubUser=githubAutoPro.getUserInfo(token);
+        System.out.println(githubUser.getBio());
+        if(githubUser!=null)
         {
-            request.getSession().setAttribute("user",user);
+            //将用户信息添加到数据库，通过添加cookie：user_token获取用户状态
+            User user=new User();
+            user.setAccountId(githubUser.getId().toString());
+            user.setName(githubUser.getName());
+            String user_token=UUID.randomUUID().toString();
+            user.setToken(user_token);
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(System.currentTimeMillis());
+            userMapper.insert(user);
+            response.addCookie(new Cookie("user_token",user_token));
         }
         return "redirect:/";    //"redirect:index"无法重定向到index，这个相当于路径访问，无法访问到template下的html文件
     }
