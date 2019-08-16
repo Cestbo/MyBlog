@@ -1,0 +1,28 @@
+body{
+
+    margin: 0;
+    height: 100%;
+    font-size: 14px;
+    line-height: 160%;
+    color: #666;
+    background-image:url("../img/bg.jpg");
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: repeat;
+    background-repeat-y: repeat;
+    background-origin: initial;
+    background-clip: initial;
+
+}
+.main{
+    background-color: white;
+    margin: 30px;
+}
+#btn_submit{
+    float: right;
+    margin-bottom: 15px;
+}
+.publish-left{
+    border-right: 1px solid #e6e6e6;
+}

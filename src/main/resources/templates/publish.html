@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/publish.css">
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">我的博客</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${session.user}==null"><a href="https://github.com/login/oauth/authorize?client_id=e5361a72c6d25c61b247&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
+                    登录</a>
+                </li>
+                <li th:if="${session.user}!=null" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                    >
+                        <span th:text="${session.user.getName()}">我</span> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">消息中心</a></li>
+                        <li><a href="#">个人资料</a></li>
+                        <li><a href="#">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container-fluid main" id="">
+    <div class="row">
+        <div class="col-sm-12 col-md-9 publish-left">
+            <h3><span class="glyphicon glyphicon-plus"></span>发起</h3>
+            <hr>
+            <form>
+                <div class="form-group">
+                    <label for="title">问题标题</label>
+                    <input type="text" placeholder="问题标题" class="form-control" id="title" >
+                </div>
+                <div class="form-group">
+                    <label for="description">问题补充</label>
+                    <textarea class="form-control" id="description" cols="30" rows="10" placeholder="详细描述问题内容"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">添加标签：</label>
+                    <input type="text" class="form-control" id="tag" placeholder="输入标签，以‘，’分隔">
+                </div>
+                <button type="submit" class="btn btn-success" id="btn_submit">提交</button>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <h3>问题发起指南</h3>
+            <br>
+            <label><span class="glyphicon glyphicon-triangle-right"></span>问题标题：</label><br>
+            请用精简的语句描述您发布的问题，不超过25个字。<br>
+            <label><span class="glyphicon glyphicon-triangle-right"></span>问题补充：</label><br>
+            详细补充您的问题内容，并确保描述问题清晰直观，并提供一些相关的资料。<br>
+            <label><span class="glyphicon glyphicon-triangle-right"></span>添加标签：</label><br>
+            添加一个或多个标签，用逗号隔开，每个标签不超过10个字。<br>
+        </div>
+    </div>
+</div>
+</body>
+</html>
