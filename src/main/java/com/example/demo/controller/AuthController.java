@@ -59,6 +59,8 @@ public class AuthController {
             user.setToken(user_token);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(System.currentTimeMillis());
+            user.setBio(githubUser.getBio());
+            user.setAvatar_url(githubUser.getAvatar_url());
             userMapper.insert(user);
             response.addCookie(new Cookie("user_token",user_token));
         }

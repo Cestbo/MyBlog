@@ -48,6 +48,14 @@
             <version>1.4.197</version>
         </dependency>
 
+        <!--lombok,用于自动生成一些实体类的get、set等方法-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
+
 
     </dependencies>
 
@@ -57,6 +65,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--flyway插件结合h2数据库的使用-->
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
