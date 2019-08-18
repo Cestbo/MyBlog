@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/publish.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-inverse">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -24,7 +26,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -58,12 +60,43 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">消息中心</a></li>
                         <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
+                        <li><a href="/logout">退出登录</a></li>
                     </ul>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<div class="container-fluid main" id="">
+    <div class="row">
+        <div class="col-sm-12 col-md-9 publish-left">
+            <h3><span class="glyphicon glyphicon-list"></span>发现</h3>
+            <hr>
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" src="https://avatars0.githubusercontent.com/u/27607581?v=4" alt="avatar">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">Media heading</h4>
+                    <span class="bottom-info">发布了置顶文章 • 3 个评论 • 1206 次浏览 • 2019-07-22 10:38</span>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <h3>问题发起指南</h3>
+            <br>
+            <label><span class="glyphicon glyphicon-triangle-right"></span>问题标题：</label><br>
+            请用精简的语句描述您发布的问题，不超过25个字。<br>
+            <label><span class="glyphicon glyphicon-triangle-right"></span>问题补充：</label><br>
+            详细补充您的问题内容，并确保描述问题清晰直观，并提供一些相关的资料。<br>
+            <label><span class="glyphicon glyphicon-triangle-right"></span>添加标签：</label><br>
+            添加一个或多个标签，用逗号隔开，每个标签不超过10个字。<br>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

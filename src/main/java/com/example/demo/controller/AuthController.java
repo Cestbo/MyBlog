@@ -66,4 +66,18 @@ public class AuthController {
         }
         return "redirect:/";    //"redirect:index"无法重定向到index，这个相当于路径访问，无法访问到template下的html文件
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletResponse response,HttpServletRequest request)
+    {
+        if(request.getSession().getAttribute("user")!=null)
+        {
+            request.getSession().removeAttribute("user");
+        }
+        //删掉cookie：user_token，思路就是替换原来的cookie,并设置它的生存时间为0
+        Cookie user_cookie=new Cookie("user_token",null);
+        user_cookie.setMaxAge(0);
+        response.addCookie(user_cookie);
+        return "redirect:/";
+    }
 }
