@@ -72,18 +72,24 @@
         <div class="col-sm-12 col-md-9 publish-left">
             <h3><span class="glyphicon glyphicon-list"></span>发现</h3>
             <hr>
-            <div class="media">
+            <div th:each="question:${questions}" class="media">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object" src="https://avatars0.githubusercontent.com/u/27607581?v=4" alt="avatar">
+                        <img th:src="@{${question.user.avatar_url}}" class="media-object"  alt="avatar">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">Media heading</h4>
-                    <span class="bottom-info">发布了置顶文章 • 3 个评论 • 1206 次浏览 • 2019-07-22 10:38</span>
+                    <h4 th:text="${question.title}" class="media-heading">Media heading</h4>
+                    <span class="bottom-info">
+                        <a th:text="${question.user.name}" href="#"></a>
+                        发布了置顶文章 • <span th:text="${question.comment_count}"></span> 个评论 •
+                        <span th:text="${question.view_count}"></span> 次浏览 •
+                        <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span>
+                    </span>
                 </div>
+                <hr>
             </div>
-            <hr>
+
         </div>
         <div class="col-sm-12 col-md-3">
             <h3>问题发起指南</h3>

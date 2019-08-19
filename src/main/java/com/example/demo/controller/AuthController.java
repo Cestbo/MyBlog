@@ -49,21 +49,25 @@ public class AuthController {
         String token=githubAutoPro.getAccessToken(accessToken);
         GithubUser githubUser=githubAutoPro.getUserInfo(token);
         System.out.println(githubUser.getBio());
-        if(githubUser!=null)
+        //判断数据库中是否存在该用户，用account_id判断
+        User database_user=userMapper.getUserByAccountId(githubUser.getId().toString());
+        if(githubUser!=null && database_user==null)
         {
             //将用户信息添加到数据库，通过添加cookie：user_token获取用户状态
             User user=new User();
-            user.setAccountId(githubUser.getId().toString());
+            user.setAccount_id(githubUser.getId().toString());
             user.setName(githubUser.getName());
             String user_token=UUID.randomUUID().toString();
             user.setToken(user_token);
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(System.currentTimeMillis());
+            user.setGmt_create(System.currentTimeMillis());
+            user.setGmt_modified(System.currentTimeMillis());
             user.setBio(githubUser.getBio());
             user.setAvatar_url(githubUser.getAvatar_url());
             userMapper.insert(user);
             response.addCookie(new Cookie("user_token",user_token));
         }
+        if(database_user!=null)
+            response.addCookie(new Cookie("user_token",database_user.getToken()));
         return "redirect:/";    //"redirect:index"无法重定向到index，这个相当于路径访问，无法访问到template下的html文件
     }
 
