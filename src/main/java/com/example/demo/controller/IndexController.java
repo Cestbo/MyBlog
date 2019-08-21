@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.mapper.UserMapper;
-import com.example.demo.pojo.QuestionDTO;
+import com.example.demo.pojo.Pagination;
 import com.example.demo.pojo.User;
 import com.example.demo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 
 
 @Controller
@@ -23,7 +24,8 @@ public class IndexController {
     @Autowired
     private QuestionService questionService;
     @RequestMapping("/")
-    public String index(HttpServletRequest request, Model model)
+    public String index(HttpServletRequest request, Model model,
+                        @RequestParam(name = "page",defaultValue = "1") int page)
     {
         Cookie[] cookies = request.getCookies();
         if(cookies!=null && cookies.length>0)
@@ -39,8 +41,8 @@ public class IndexController {
 
             }
         }
-        ArrayList<QuestionDTO> questionDTOS=questionService.list();
-        model.addAttribute("questions",questionDTOS);
+        Pagination pagination=questionService.getPage(page);
+        model.addAttribute("pagination",pagination);
         return "index";
     }
 }
