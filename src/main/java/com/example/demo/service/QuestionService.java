@@ -44,4 +44,26 @@ public class QuestionService {
         pagination.setPaginaton(totalPages);
         return pagination;
     }
+
+    public Pagination getPageByUser(int page,int userId) {
+
+        ArrayList<QuestionDTO> questionDTOS=questionMapper.getPageByUser(userId,size*(page-1),size);
+
+        Pagination pagination=new Pagination();
+        pagination.setQuestionDTOS(questionDTOS);
+        pagination.setPage(page);
+
+        //计算总页数
+        int count=questionMapper.countByUserId(userId);
+        int totalPages;
+        if(count%size>0)
+            totalPages=count/size+1;
+        else
+            totalPages=count/size;
+
+        pagination.setEndPage(totalPages);
+        pagination.setPaginaton(totalPages);
+        return pagination;
+    }
+
 }

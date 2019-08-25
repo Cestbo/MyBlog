@@ -25,4 +25,9 @@ public interface QuestionMapper {
     @Select("select count(id) from question")
     int count();
 
+    @Select("select *from question where creator=#{userId} limit #{offset},#{size}")
+    ArrayList<QuestionDTO> getPageByUser(@Param("userId") int userId ,@Param("offset") int offset, @Param("size") int size);
+
+    @Select(" select count(id) from question where creator=#{userId}")
+    int countByUserId(@Param("userId") int useId);
 }
