@@ -19,7 +19,7 @@ public interface UserMapper {
     User getUserByToken(@Param("token") String user_token);
 
     @Select("select * from user where id=#{id}")
-    User getUserByid(int id);
+    User getUserById(int id);
 
     @Select("select * from user where account_id=#{account_id}")
     User getUserByAccountId(String account_id);

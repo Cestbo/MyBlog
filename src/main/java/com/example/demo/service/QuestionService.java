@@ -25,7 +25,7 @@ public class QuestionService {
     {
         ArrayList<QuestionDTO> questionDTOS=questionMapper.getPage(size*(page-1),size);
         for (QuestionDTO questionDTO : questionDTOS) {
-            User user=userMapper.getUserByid(questionDTO.getCreator());
+            User user=userMapper.getUserById(questionDTO.getCreator());
             questionDTO.setUser(user);
         }
         Pagination pagination=new Pagination();

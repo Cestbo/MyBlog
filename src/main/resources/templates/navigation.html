@@ -18,7 +18,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+                    <li th:class="${nav_section=='home'}? 'active'"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Link</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -43,8 +43,10 @@
                     <li th:if="${session.user}==null"><a href="https://github.com/login/oauth/authorize?client_id=e5361a72c6d25c61b247&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
                         登录</a>
                     </li>
-                    <li th:if="${session.user}!=null"><a href="/publish"><span class="glyphicon glyphicon-plus"></span>发布问题</a></li>
-                    <li th:if="${session.user}!=null" class="dropdown">
+                    <li th:if="${session.user}!=null" th:class="${nav_section=='publish'}? 'active'"><a href="/publish">
+                        <span class="glyphicon glyphicon-plus"></span>发布问题</a>
+                    </li>
+                    <li th:if="${session.user}!=null" th:class="${nav_section=='profile'}? 'active dropdown': 'dropdown'">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
                         >
                             <span th:text="${session.user.getName()}">我</span> <span class="caret"></span>
