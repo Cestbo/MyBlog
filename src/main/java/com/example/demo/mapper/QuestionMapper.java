@@ -2,10 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.pojo.Question;
 import com.example.demo.pojo.QuestionDTO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 
@@ -30,4 +27,11 @@ public interface QuestionMapper {
 
     @Select(" select count(id) from question where creator=#{userId}")
     int countByUserId(@Param("userId") int useId);
+
+    @Select("select *from question where id=#{id}")
+    QuestionDTO getQuesById(int id);
+
+    @Update("update question set title=#{title},description=#{description}," +
+            "tag=#{tag},gmt_modified=#{gmt_modified} where id=#{id}")
+    void update(Question question);
 }

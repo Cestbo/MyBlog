@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.Pagination;
+import com.example.demo.pojo.Question;
 import com.example.demo.pojo.QuestionDTO;
 import com.example.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,9 @@ public class QuestionService {
             totalPages=count/size+1;
         else
             totalPages=count/size;
-
+        //如果没数据，总页数为1
+        if (totalPages==0)
+            totalPages=1;
         pagination.setEndPage(totalPages);
         pagination.setPaginaton(totalPages);
         return pagination;
@@ -66,4 +69,24 @@ public class QuestionService {
         return pagination;
     }
 
+    public QuestionDTO getQuesById(int id) {
+        QuestionDTO questionDTO=questionMapper.getQuesById(id);
+        //根据question的creator找到user
+        User user=userMapper.getUserById(questionDTO.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+    public void insertOrUpdate(Question question, String id) {
+        if(id==null || id=="")
+        {
+            questionMapper.insert(question);
+        }
+        //记录，需要id确定哪条记录
+        else {
+            question.setId(Integer.valueOf(id));
+            questionMapper.update(question);
+        }
+
+    }
 }

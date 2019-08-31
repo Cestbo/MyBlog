@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${questionDTO.title}">Title</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/publish.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/jquery.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!--插入navigation中的导航栏-->
+<div th:insert="navigation :: nav"></div>
+<div class="container-fluid main" id="">
+    <div class="row">
+        <div class="col-sm-12 col-md-9 publish-left">
+            <h3 th:text="${questionDTO.title}"></h3>
+            <span class="bottom-info">
+                作者：<span th:text="${questionDTO.user.name}"></span> |
+                发布时间：<span th:text="${#dates.format(questionDTO.gmt_create,'yyyy-MM-dd HH:mm')}"></span> |
+                阅读数：<span th:text="${questionDTO.view_count}==null? '0':${questionDTO.view_count}"></span>
+            </span>
+            <hr>
+            <p th:text="${questionDTO.description}"></p>
+            <hr>
+            <a th:if="${session.user !=null && session.user.id ==questionDTO.user.id}" th:href="@{'/publish/'+${questionDTO.id}}">
+                <span class="glyphicon glyphicon-edit" ></span>
+                编辑
+            </a>
+
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <h4>发起人</h4>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <img th:src="@{${questionDTO.user.avatar_url}}" class="media-object img-rounded"  alt="avatar">
+                </div>
+                <div class="media-body">
+                    <span th:text="${questionDTO.user.name}"></span>
+                </div>
+            </div>
+            <hr>
+            <h4>相关问题</h4>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

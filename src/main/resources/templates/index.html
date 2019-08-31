@@ -19,16 +19,18 @@
             <hr>
             <div th:each="question:${pagination.questionDTOS}" class="media">
                 <div class="media-left">
-                    <a href="#">
+                    <a th:href="@{'/question/'+${question.id}}">
                         <img th:src="@{${question.user.avatar_url}}" class="media-object"  alt="avatar">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 th:text="${question.title}" class="media-heading">Media heading</h4>
+                    <a th:href="@{'/question/'+${question.id}}">
+                        <h4 th:text="${question.title}" class="media-heading">Media heading</h4>
+                    </a>
                     <span class="bottom-info">
-                        <a th:text="${question.user.name}" href="#"></a>
-                        发布了置顶文章 • <span th:text="${question.comment_count}"></span> 个评论 •
-                        <span th:text="${question.view_count}"></span> 次浏览 •
+                        <a th:text="${question.user.name}" href="#"></a>发布了置顶文章 •
+                        <span th:text="${question.comment_count}==null? '0':${question.comment_count}"></span> 个评论 •
+                        <span th:text="${question.view_count}==null? '0':${question.view_count}"></span> 次浏览 •
                         <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span>
                     </span>
                 </div>
@@ -48,7 +50,7 @@
                     </li>
                     <li th:each="page:${pagination.pages}" th:class="${pagination.page}==${page}? active"><a th:text="${page}" th:href="@{'?page='+${page}}"></a></li>
                     <li th:if="${pagination.showNext}">
-                        <a href="" th:href="@{'?page='+${pagination.endPage+1}}" aria-label="Next">
+                        <a href="" th:href="@{'?page='+${pagination.page+1}}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>

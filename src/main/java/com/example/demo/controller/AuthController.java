@@ -5,6 +5,7 @@ import com.example.demo.pojo.AccessToken;
 import com.example.demo.pojo.GithubUser;
 import com.example.demo.pojo.User;
 import com.example.demo.provider.GithubAutoPro;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ import java.util.UUID;
 public class AuthController {
     @Autowired
     private GithubAutoPro githubAutoPro;
+    @Autowired
+    private UserService userService;
 
     //从.properties文件获取GitHub授权数据
     @Value("${github.client_id}")
@@ -49,9 +52,8 @@ public class AuthController {
         String token=githubAutoPro.getAccessToken(accessToken);
         GithubUser githubUser=githubAutoPro.getUserInfo(token);
         System.out.println(githubUser.getBio());
-        //判断数据库中是否存在该用户，用account_id判断
-        User database_user=userMapper.getUserByAccountId(githubUser.getId().toString());
-        if(githubUser!=null && database_user==null)
+
+        if(githubUser!=null)
         {
             //将用户信息添加到数据库，通过添加cookie：user_token获取用户状态
             User user=new User();
@@ -63,11 +65,9 @@ public class AuthController {
             user.setGmt_modified(System.currentTimeMillis());
             user.setBio(githubUser.getBio());
             user.setAvatar_url(githubUser.getAvatar_url());
-            userMapper.insert(user);
+            userService.UpdateOrAddUser(user,githubUser.getId().toString());
             response.addCookie(new Cookie("user_token",user_token));
         }
-        if(database_user!=null)
-            response.addCookie(new Cookie("user_token",database_user.getToken()));
         return "redirect:/";    //"redirect:index"无法重定向到index，这个相当于路径访问，无法访问到template下的html文件
     }
 
