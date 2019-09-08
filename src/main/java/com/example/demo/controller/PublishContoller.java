@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
 
 @Controller
 public class PublishContoller {
@@ -55,7 +54,7 @@ public class PublishContoller {
     @RequestMapping("/publish/{id}")
     public String edit(@PathVariable(name = "id") int id , Model model)
     {
-        QuestionDTO questionDTO=questionService.getQuesById(id);
+        QuestionDTO questionDTO=questionService.getQuesDTOById(id);
         model.addAttribute("title",questionDTO.getTitle());
         model.addAttribute("description",questionDTO.getDescription());
         model.addAttribute("tag",questionDTO.getTag());

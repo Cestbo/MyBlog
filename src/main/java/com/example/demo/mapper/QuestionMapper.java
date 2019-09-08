@@ -34,4 +34,12 @@ public interface QuestionMapper {
     @Update("update question set title=#{title},description=#{description}," +
             "tag=#{tag},gmt_modified=#{gmt_modified} where id=#{id}")
     void update(Question question);
+
+    //单独拿出阅读数和点赞数更新，以免并发时造成数据错误
+    @Update("update question set view_count=view_count+1 where id=#{id}")
+    int updateView_count(Integer id);
+
+    @Update("update question set like_count=like_count+1 where id=#{id}")
+    int updateLike_count(Integer id);
+
 }

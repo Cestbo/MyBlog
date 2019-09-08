@@ -15,7 +15,20 @@ public class QuestionController {
     @RequestMapping("/question/{id}")
     public String question(@PathVariable(name = "id") int id, Model model)
     {
-        QuestionDTO questionDTO=questionService.getQuesById(id);
+        QuestionDTO questionDTO=questionService.getQuesDTOById(id);
+        //考虑并发，不能采取先查询后加一的策略，会导致阅读数不准确
+        /*Integer view_count=questionDTO.getView_count();
+        if (view_count==null)
+            view_count=1;
+        else
+        {
+            view_count++;
+        }
+        questionDTO.setView_count(view_count);
+
+        questionService.insertOrUpdate(questionDTO,String.valueOf(questionDTO.getId()));*/
+        //更新阅读数
+        questionService.incView_count(id);
         model.addAttribute("questionDTO",questionDTO);
         return "question";
     }

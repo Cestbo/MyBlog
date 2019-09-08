@@ -69,8 +69,12 @@ public class QuestionService {
         return pagination;
     }
 
-    public QuestionDTO getQuesById(int id) {
+    public QuestionDTO getQuesDTOById(int id) {
         QuestionDTO questionDTO=questionMapper.getQuesById(id);
+        if(questionDTO==null)
+        {
+            throw new RuntimeException("不存在该问题");
+        }
         //根据question的creator找到user
         User user=userMapper.getUserById(questionDTO.getCreator());
         questionDTO.setUser(user);
@@ -87,6 +91,13 @@ public class QuestionService {
             question.setId(Integer.valueOf(id));
             questionMapper.update(question);
         }
+
+    }
+
+
+    public void incView_count(int id) {
+        if (questionMapper.updateView_count(id)<=0)
+            throw new RuntimeException("更新阅读数出错");
 
     }
 }
