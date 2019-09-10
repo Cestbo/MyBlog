@@ -42,6 +42,9 @@ public class PublishContoller {
         question.setTag(tag);
         question.setGmt_create(System.currentTimeMillis());
         question.setGmt_modified(System.currentTimeMillis());
+        question.setComment_count(0);
+        question.setLike_count(0);
+        question.setView_count(0);
         //获取用户id
         User user= (User) request.getSession().getAttribute("user");
         question.setCreator(user.getId());

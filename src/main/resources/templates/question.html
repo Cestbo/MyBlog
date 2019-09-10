@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/index.css">
     <script src="/jquery.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/question.js"></script>
 </head>
 <body>
 <!--插入navigation中的导航栏-->
@@ -28,6 +29,48 @@
                 <span class="glyphicon glyphicon-edit" ></span>
                 编辑
             </a>
+
+            <!--评论内容-->
+
+            <div class="col-lg-12 col-md-12 comment" >
+                <h4>
+                    <span th:text="${questionDTO.comment_count}"></span>个回复
+                </h4>
+                <hr id="comment-split">
+                <div class="media">
+                    <div class="media-left">
+                        <img th:src="@{${questionDTO.user.avatar_url}}" class="media-object img-rounded"  alt="avatar">
+                    </div>
+                    <div class="media-body">
+                        <span th:text="${questionDTO.user.name}" class="bottom-info"></span>
+                        <div >
+                            afdsafdsafd
+                        </div>
+                        <div class="bottom-info">
+                            <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                            <span th:text="${questionDTO.like_count}"></span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment icon"></span>
+                            <span class="pull-right" th:text="${#dates.format(questionDTO.gmt_create,'yyyy-MM-dd')}"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr>
+            <div class="media col-lg-12 col-md-12">
+                <div class="media-left media-middle">
+                    <img th:src="@{${questionDTO.user.avatar_url}}" class="media-object img-rounded"  alt="avatar">
+                </div>
+                <div class="media-body">
+                    <span th:text="${questionDTO.user.name}" class="bottom-info"></span>
+                </div>
+            </div>
+            <input type="hidden" th:value="${questionDTO.id}" id="question-id">
+            <textarea class="col-lg-12 col-md-12 comment" rows="6" id="comment"></textarea>
+            <button type="button" class="btn btn-success btn-comment" id="btn-comment" onclick="post()">提交</button>
 
         </div>
         <div class="col-sm-12 col-md-3">

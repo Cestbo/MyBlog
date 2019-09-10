@@ -9,6 +9,17 @@
     <script src="jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
+<script>
+    window.onload=function () {
+        var item = window.localStorage.getItem("close");
+        if (item=="true")
+        {
+            window.localStorage.removeItem("close");
+            window.close();
+        }
+
+    }
+</script>
 <body>
 <!--插入navigation中的导航栏-->
 <div th:insert="navigation :: nav"></div>

@@ -26,3 +26,9 @@ body{
 .publish-left{
     border-right: 1px solid #e6e6e6;
 }
+.comment{
+    margin: 10px 0;
+}
+.btn-comment{
+    float: right;
+}
