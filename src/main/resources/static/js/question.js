@@ -15,6 +15,7 @@ function post() {
             if(response.code==200)
             {
                 alert("回复成功");
+                location.reload();
             }
             else if (response.code == 2000) {
                 var a = confirm(response.msg);

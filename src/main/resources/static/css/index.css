@@ -24,3 +24,7 @@
 .icon:hover{
     color: #499ef3;
 }
+.comment-display{
+    padding: 5px 5px;
+    border-bottom: 1px solid #eee;
+}

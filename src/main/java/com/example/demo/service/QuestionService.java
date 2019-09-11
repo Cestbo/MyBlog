@@ -1,16 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.mapper.CommentMapper;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
-import com.example.demo.pojo.Pagination;
-import com.example.demo.pojo.Question;
-import com.example.demo.pojo.QuestionDTO;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class QuestionService {
@@ -18,6 +17,8 @@ public class QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Value("${page.question.num}")
     private int size;
@@ -99,5 +100,21 @@ public class QuestionService {
         if (questionMapper.updateView_count(id)<=0)
             throw new RuntimeException("更新阅读数出错");
 
+    }
+
+    //查询问题中的评论
+    public List<CommentDTO> getCommentsByParentId(Integer id)
+    {
+        ArrayList<CommentDTO> comments=new ArrayList<>();
+        List<CommentDTO> commentList = commentMapper.getByParentId(id);
+        for (CommentDTO commentDTO : commentList) {
+            if (commentDTO.getType()==1)
+            {
+                User user = userMapper.getUserById(Math.toIntExact(commentDTO.getCommentator()));
+                commentDTO.setUser(user);
+                comments.add(commentDTO);
+            }
+        }
+        return comments;
     }
 }

@@ -37,21 +37,21 @@
                     <span th:text="${questionDTO.comment_count}"></span>个回复
                 </h4>
                 <hr id="comment-split">
-                <div class="media">
+                <div class="media comment-display" th:each="commentDTO:${commentDTOs}">
                     <div class="media-left">
-                        <img th:src="@{${questionDTO.user.avatar_url}}" class="media-object img-rounded"  alt="avatar">
+                        <img th:src="@{${commentDTO.user.avatar_url}}" class="media-object img-rounded"  alt="avatar">
                     </div>
                     <div class="media-body">
-                        <span th:text="${questionDTO.user.name}" class="bottom-info"></span>
-                        <div >
-                            afdsafdsafd
+                        <span th:text="${commentDTO.user.name}" class="bottom-info"></span>
+                        <div th:text="${commentDTO.content}">
+
                         </div>
                         <div class="bottom-info">
                             <span class="glyphicon glyphicon-thumbs-up icon"></span>
-                            <span th:text="${questionDTO.like_count}"></span>
+                            <span th:text="${commentDTO.like_count}"></span>
                             &nbsp;&nbsp;&nbsp;
                             <span class="glyphicon glyphicon-comment icon"></span>
-                            <span class="pull-right" th:text="${#dates.format(questionDTO.gmt_create,'yyyy-MM-dd')}"></span>
+                            <span class="pull-right" th:text="${#dates.format(commentDTO.gmt_create,'yyyy-MM-dd')}"></span>
                         </div>
                     </div>
 
