@@ -50,8 +50,12 @@
                             <span class="glyphicon glyphicon-thumbs-up icon"></span>
                             <span th:text="${commentDTO.like_count}"></span>
                             &nbsp;&nbsp;&nbsp;
-                            <span class="glyphicon glyphicon-comment icon"></span>
+                            <span class="glyphicon glyphicon-comment icon" data-toggle="collapse"
+                                  th:data-target="${'#comment-'+commentDTO.id}"></span>
                             <span class="pull-right" th:text="${#dates.format(commentDTO.gmt_create,'yyyy-MM-dd')}"></span>
+                        </div>
+                        <div class="collapse second-comment" th:id="${'comment-'+commentDTO.id}">
+                            二级评论
                         </div>
                     </div>
 

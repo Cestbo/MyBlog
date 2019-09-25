@@ -16,7 +16,7 @@ public interface QuestionMapper {
             "#{like_count},#{tag}) ")
     void insert(Question question);
 
-    @Select("select * from question limit #{offset},#{size}")
+    @Select("select * from question order by gmt_modified desc limit #{offset},#{size}")
     ArrayList<QuestionDTO> getPage(@Param("offset") int offset, @Param("size") int size);
 
     @Select("select count(id) from question")

@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ErrorType {
     NOT_LOGIN(2000,"未登录，请先登录"),
-    NO_COMMENT(2001,"评论失败");
+    NO_COMMENT(2001,"评论不能为空");
     private Integer code;
     private String message;
 

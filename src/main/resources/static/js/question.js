@@ -1,6 +1,11 @@
 function post() {
     var id=$("#question-id").val();
     var comment=$("#comment").val();
+    if(comment==null || comment=="")
+    {
+        alert("不能回复为空");
+        return;
+    }
     $.ajax({
         type:"POST",
         url:"/comment",

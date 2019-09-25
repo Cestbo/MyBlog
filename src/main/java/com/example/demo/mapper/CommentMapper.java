@@ -15,6 +15,6 @@ public interface CommentMapper {
             "values(#{parent_id},#{type},#{commentator},#{gmt_create},#{gmt_modified},#{like_count},#{content})")
     void insert(Comment comment);
 
-    @Select("select * from comment where parent_id=#{id}")
+    @Select("select * from comment where parent_id=#{id} order by gmt_modified desc")
     List<CommentDTO> getByParentId(Integer id);
 }

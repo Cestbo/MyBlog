@@ -5,6 +5,7 @@ import com.example.demo.exception.MyException;
 import com.example.demo.pojo.Comment;
 import com.example.demo.pojo.User;
 import com.example.demo.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,7 @@ public class CommentController {
         {
             throw new MyException(ErrorType.NOT_LOGIN);
         }
-        if(comment==null)
+        if(comment==null || StringUtils.isBlank(comment.getContent()))
         {
             throw new MyException(ErrorType.NO_COMMENT);
         }
