@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload=function () {
+
+
+        var trs=document.getElementsByTagName("tr");
+        for (var i=0;i<trs.length;i++)
+        {
+            var tr=trs[i];
+            tr.onmouseover=function () {
+                this.style.background="#ff0000";
+            }
+            tr.onmouseout=function(){
+                this.style.background="#ffffff";
+            }
+            tr.onclick = (function () {
+                var rowNum=i;
+                return function () {
+                    alert(rowNum);
+                }
+            })()
+
+
+        }
+        }
+        /*function f() {
+            var td=event.srcElement;
+            var tr=td.parentElement;
+            alert(tr.rowIndex);
+        }*/
+    </script>
+</head>
+<body>
+<table border="1" width="768" align="center">
+    <tr >
+        <td>12121212</td>
+    </tr>
+    <tr>
+        <td>1212122121</td>
+    </tr>
+    <tr>
+        <td>2121212</td>
+    </tr>
+</table>
+
+</body>
+</html>

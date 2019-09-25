@@ -19,4 +19,10 @@ public class CommentService {
         commentMapper.insert(comment);
         questionMapper.updateComment_count(parent_id);
     }
+
+    public int like(int id) {
+        commentMapper.like(id);
+        return commentMapper.getLike_id(id);
+
+    }
 }

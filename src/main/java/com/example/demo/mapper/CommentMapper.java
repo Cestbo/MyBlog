@@ -5,6 +5,7 @@ import com.example.demo.pojo.CommentDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -17,4 +18,10 @@ public interface CommentMapper {
 
     @Select("select * from comment where parent_id=#{id}")
     List<CommentDTO> getByParentId(Integer id);
+
+    @Update("update comment set like_count=like_count+1 where id=#{id}")
+    void like(int id);
+
+    @Select("select like_count from comment where id=#{id}")
+    int getLike_id(int id);
 }

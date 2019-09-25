@@ -37,6 +37,7 @@
                     <span th:text="${questionDTO.comment_count}"></span>个回复
                 </h4>
                 <hr id="comment-split">
+                <!--一级评论-->
                 <div class="media comment-display" th:each="commentDTO:${commentDTOs}">
                     <div class="media-left">
                         <img th:src="@{${commentDTO.user.avatar_url}}" class="media-object img-rounded"  alt="avatar">
@@ -44,14 +45,21 @@
                     <div class="media-body">
                         <span th:text="${commentDTO.user.name}" class="bottom-info"></span>
                         <div th:text="${commentDTO.content}">
-
                         </div>
+                        <input type="hidden" th:id="${'comment-'+commentDTO.id}" th:value="${commentDTO.id}">
                         <div class="bottom-info">
-                            <span class="glyphicon glyphicon-thumbs-up icon"></span>
-                            <span th:text="${commentDTO.like_count}"></span>
+                            <span class="glyphicon glyphicon-thumbs-up icon" onclick="applaud(this)" th:data-id="${commentDTO.id}"></span>
+                            <span th:text="${commentDTO.like_count}" th:id="'like_count_'+${commentDTO.id}" ></span>
                             &nbsp;&nbsp;&nbsp;
-                            <span class="glyphicon glyphicon-comment icon"></span>
+                            <span class="glyphicon glyphicon-comment icon" data-toggle="collapse" th:data-target="'#second-comment-'+${commentDTO.id}"></span>
                             <span class="pull-right" th:text="${#dates.format(commentDTO.gmt_create,'yyyy-MM-dd')}"></span>
+                        </div>
+                        <!--二级评论-->
+                        <div class="collapse col-lg-12 col-md-12" th:id="'second-comment-'+${commentDTO.id}">
+                            <textarea class="col-lg-12 col-md-12" rows="3" id="second-comment"></textarea>
+                            <br>
+                            <button type="button" class="btn btn-success btn-comment" id="btn-comment2" onclick="post(this)">提交</button>
+
                         </div>
                     </div>
 
@@ -70,7 +78,8 @@
             </div>
             <input type="hidden" th:value="${questionDTO.id}" id="question-id">
             <textarea class="col-lg-12 col-md-12 comment" rows="6" id="comment"></textarea>
-            <button type="button" class="btn btn-success btn-comment" id="btn-comment" onclick="post()">提交</button>
+            <br>
+            <button type="button" class="btn btn-success btn-comment" id="btn-comment" onclick="post(this)">提交</button>
 
         </div>
         <div class="col-sm-12 col-md-3">

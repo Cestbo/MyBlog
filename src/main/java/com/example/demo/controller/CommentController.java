@@ -46,4 +46,12 @@ public class CommentController {
         return map;
 
     }
+
+    /*评论点赞*/
+    @ResponseBody
+    @RequestMapping(value = "/comment_like",method = RequestMethod.POST)
+    public int comment_like(int id)
+    {
+        return commentService.like(id);
+    }
 }

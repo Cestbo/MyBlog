@@ -13,6 +13,7 @@
 .btn-comment{
     float: right;
     margin-bottom: 10px;
+    margin-top: 5px;
 }
 #comment-split{
     margin: 0;

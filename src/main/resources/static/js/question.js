@@ -1,13 +1,24 @@
-function post() {
-    var id=$("#question-id").val();
-    var comment=$("#comment").val();
+function post(e) {
+    var btn_id=e.id;
+    var type=1;
+    if (btn_id=="btn-comment")
+    {
+        var id=$("#question-id").val();
+        var comment=$("#comment").val();
+    }
+    else if (btn_id=="btn-comment2")
+    {
+        var id=$("#comment-id").val();
+        var comment=$("#second-comment").val();
+        type=2
+    }
     $.ajax({
         type:"POST",
         url:"/comment",
         data:JSON.stringify({
             "parent_id":id,
             "content":comment,
-            "type":1
+            "type":type
         }),
         datatype:"json",
         contentType:"application/json",
@@ -26,6 +37,21 @@ function post() {
                 }
             }
             console.log(response);
+        }
+    })
+}
+function applaud(e) {
+    var comment_id=e.getAttribute("data-id");
+    $.ajax({
+        type:"POST",
+        url:"/comment_like",
+        data:{
+            "id":comment_id
+        },
+
+        success:function (response) {
+            var like_count=$("#like_count_"+comment_id);
+            like_count.text(response);
         }
     })
 }
